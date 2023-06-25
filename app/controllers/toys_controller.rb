@@ -7,13 +7,16 @@ class ToysController < ApplicationController
   end
 
   def create
-    toy = Toys.create(toy_params)
+    toy = Toy.create(toy_params) #FIX TOY SPELLING FROM 'Toys' To 'Toy'  ERROR: NameError (uninitialized constant ToysController::Toys):
+    
     render json: toy, status: :created
   end
 
   def update
     toy = Toy.find_by(id: params[:id])
-    toy.update(toy_params)
+    
+    toy.update(likes: toy.likes + 1) # ADD LIKE FUNCTIONALITY
+    render json: toy
   end
 
   def destroy
@@ -21,6 +24,10 @@ class ToysController < ApplicationController
     toy.destroy
     head :no_content
   end
+
+
+  
+
 
   private
   
